@@ -1,3 +1,11 @@
+- user defined modules (index.js) module.export ={}  require('./file-name')
+- Core modules (fs, http, path)
+- external modules (express) // npm install --save express
+
+const os = require('os');
+const fs = require('fs');
+
+
 assert	provides a set of assertion functions useful for testing
 buffer	provides the ability to handle buffers containing binary data
 child_process	provides the ability to spawn child processes
@@ -38,3 +46,8 @@ The Node.js fs module
 The Node.js http module
 The Node.js os module
 The Node.js path module
+
+
+1. non I/O Blocking 
+2. Single Threaded
+3. Event driven 

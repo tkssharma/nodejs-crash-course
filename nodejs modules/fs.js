@@ -2,13 +2,15 @@
 
 const fs = require('fs')
 
-fs.rename('before.json', 'after.json', (err) => {
+console.log('hello1')
+fs.readFile('before.json', (err, data) => {
   if (err) {
     return console.error(err)
   }
-
+  console.log(data);
   //done
 })
+console.log('hello2')
 //A synchronous API can be used like this, with a try/catch //block to handle errors:
 
 const fs = require('fs')

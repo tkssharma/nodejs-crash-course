@@ -6,6 +6,8 @@ http.createServer()
 
 //Usage:
 
-const server = http.createServer((req, res) => {
+http.createServer((req, res) => {
+  res.write('hello world');
+  res.end();
   //handle every single request with this callback
-});
+}).listen(5001)
