@@ -1,4 +1,5 @@
 var http = require('http');
+// commonjs module pattern 
 var module1 = require('./module1');
 var module2 = require('./module2');
 
@@ -10,3 +11,5 @@ function onRequest(request, response) {
 }
 
 http.createServer(onRequest).listen(8000);
+
+// Node JS modules and Module Patterns 
