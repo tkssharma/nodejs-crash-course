@@ -1,27 +1,18 @@
-'use strict';
 
-import models from '../models';
-const Post = models.Post;
-
+const Post = require('../models/post');
 /**
  * Find all posts by a Post in the db
  *
 **/
-export function findAll ({limit = 50, offset = 0, userName='',...otherOptions} = {}){
-	return Post.findAll({
-		limit: Number(limit),
-		offset: Number(offset),
-		where: {
-			...otherOptions
-		}
-	});
+export async function findAll ({limit = 50, offset = 0, userName='',...otherOptions} = {}){
+	return await Post.find({})
 };
 /**
  * Find post by id
  * @param postId id of the post to find
 **/
-export function findById (postId){
-	return Post.findById(postId);
+export async function findById (postId){
+	return await Post.findById(postId);
 };
 
 /**
@@ -32,8 +23,10 @@ export function findById (postId){
  * - userId {String}
  * - status: draf vs published
 **/
-export function create (post){
-	return Post.create(post);
+export async function create (post, userId){
+  const post = await Post.create(post);
+  const user = await User.findById(userId);
+	return user;
 };
 
 /**
@@ -45,7 +38,7 @@ export function create (post){
  * - userId {String}
  * - status: draf vs published
 **/
-export function update (post){
+export async  function update (post){
 	return Post
 			.findById(post.id)
 			.then((p)=>{
@@ -58,9 +51,5 @@ export function update (post){
  * @param postId {UUID}
 **/
 export function deletePost (postId){
-	return Post.destroy({
-		where: {
-			id: postId
-		}
-	});
+	return Post.findByIdAndRemove(postId);
 };

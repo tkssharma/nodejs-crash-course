@@ -1,4 +1,4 @@
-'use strict';
+
 const config = {
 	db: {
 		database: 'blog-dev',

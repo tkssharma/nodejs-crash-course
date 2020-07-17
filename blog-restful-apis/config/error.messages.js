@@ -1,4 +1,4 @@
-'use strict';
+
 
 const errorMessages = {
     SERVER_ERROR: "Oops..Server error!!! Please conctact the system admin",

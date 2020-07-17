@@ -1,20 +1,13 @@
-'use strict';
 
-import models from '../models';
-const User = models.User;
+
+const User  = require('../models/user');
 
 /**
  * Find all users in the db
  *
 **/
 export function findAll ({limit = 50, offset = 0, ...otherOptions} = {}){
-	return User.findAll({
-		limit: Number(limit),
-		offset: Number(offset),
-		where: {
-			...otherOptions
-		}
-	});
+	return User.findAll();
 };
 
 /**
@@ -23,9 +16,7 @@ export function findAll ({limit = 50, offset = 0, ...otherOptions} = {}){
 **/
 export function findByUserName (userName){
 	return User.find({
-		where: {
 			userName: userName
-		}
 	});
 };
 /**
@@ -37,7 +28,8 @@ export function findByUserName (userName){
  * - status: active vs inactive
 **/
 export function create (user){
-	return User.create(user);
+  const user  = User.create(user);
+	return user;
 };
 
 /**
@@ -49,9 +41,5 @@ export function create (user){
  * - status: active vs inactive
 **/
 export function deleteUser (user){
-	return User.destroy({
-		where: {
-			...user
-		}
-	});
+	return User.findByIdAndRemove();
 };

@@ -1,4 +1,4 @@
-'use strict';
+
 import logger from '../util/logger';
 import commonUtil from '../util/common.util';
 import errorMessages from '../../config/error.messages';

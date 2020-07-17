@@ -1,27 +1,23 @@
-'use strict';
+
 /**
  * Module dependencies.
  */
-
-require('./config/init')();
+require('dotenv').config()
+const http = require('http');
 const logger = require('./app/util/logger');
-const config = require('./config/config');
-const express = require('./config/express');
+const app = require('./express');
 /**
  * Main application entry file.
  * Please note that the order of loading is important.
  */
-logger.info('start loading models');
+var mongoose = require('mongoose');
+console.log(process.env.MONGO)
+mongoose.connect(process.env.MONGO,  { useNewUrlParser: true } );
 // Bootstrap sequelize models
-const models = require('./app/models');
-const server = express(models.sequelize);
+const server = http.createServer(app);
 
-models.sequelize.sync().then(()=>{
-    return server.listenAsync(config.port).then(()=>{
-        logger.info('Application started on port ', config.port);
-    });
-}).catch((e)=>{
-    logger.error('Failed to start the server', e);
+server.listen(3002 || process.env.PORT, () => {
+  logger.info('Application started on port ', 3002 || process.env.PORT);
 });
 
 export default server;

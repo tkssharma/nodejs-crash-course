@@ -1,4 +1,4 @@
-'use strict';
+
 
 const config =  {
 	port: process.env.PORT || 5003,

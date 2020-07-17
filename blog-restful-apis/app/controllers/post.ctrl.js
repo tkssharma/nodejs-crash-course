@@ -1,4 +1,4 @@
-'use strict';
+
 import logger from '../util/logger';
 import commonUtil from '../util/common.util';
 import errorMessages from '../../config/error.messages';
@@ -29,11 +29,11 @@ const operations = {
 				});
 	},
 	create: (req, resp)=>{
-		const post = req.body;
-		post.userId = req.params.userName;
+    const post = req.body;
+		const  { userId } = req.params;
 		logger.info('About to create post ', post);
 		return postService
-				.create(post)
+				.create(post, userId)
 				.then((data)=>{
 					resp.json(data);
 				});

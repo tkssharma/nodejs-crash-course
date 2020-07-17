@@ -1,33 +1,19 @@
-"use strict";
+var mongoose = require('mongoose');
+mongoose.connect('localhost:27017/test');
+var Schema = mongoose.Schema;
 
-export default function (sequelize, DataTypes) {
-    const Post = sequelize.define('Post', {
-        id: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
-            primaryKey: true
-        },
-        title: DataTypes.STRING,
-        content: DataTypes.STRING,
-        status: {
-            type: DataTypes.ENUM('draft', 'published'),
-            defaultValue: 'draft',
-            allowNull: false
-        }
-    }, {
-        classMethods: {
-            associate: (models) =>{
-                Post.belongsTo(models.User, {
-                    onDelete: 'CASCADE',
-                    foreignKey: {
-                        fieldName: 'userId',
-                        allowNull: false
-                    },
-                    targetKey: 'userName'
-                });
-            }
-        }
-    });
+var PostSchema = new Schema({
+	title: { type: String, required: true },
+	content: {
+		type: String
+	},
+	status: {
+		type: String
+	},
+	user: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'User'
+	}
+});
 
-  return Post;
-};
+module.exports = mongoose.model('Post', PostSchema);
