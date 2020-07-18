@@ -62,7 +62,7 @@ This is a proposal / example for creating restful APIs with node, express, seque
 |------ | ----------- | ----------- |
 | 1 | get **/api/users/:userName/posts?limit=<#>&offset=<#>&status=active,inactive**  | Get all posts of a user based on input criteria such as status, limit.. |
 | 2 | get **/api/posts/:postId** | Get a post by id |
-| 3 | post **/api/users/:userName/posts** | Create a new post |
+| 3 | post **/api/users/:userId/posts** | Create a new post |
 | 4 | delete **/api/posts/:postId** | Delete a post by post id |
 | 5 | put **/api/posts/:postId** | Update a post by post id |
 

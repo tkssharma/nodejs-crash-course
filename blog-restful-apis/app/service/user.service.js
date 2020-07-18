@@ -1,18 +1,18 @@
 
 const User  = require('../models/user');
 
-export function findByUserName (name) {
-    return User.findOne({ userName: name}).exec();
+export async function findByUserName (name) {
+    return await User.findOne({ userName: name});
 }
-export function list({ limit=50,offset=0, ...args} = {}) {
-    return User.find().exec()
+export async function list({ limit=50,offset=0, ...args} = {}) {
+    return await User.find({}).populate('posts');
 }
-export function findById(UserId) {
-    return User.findById(UserId);
+export async function findById(UserId) {
+    return await User.findById(UserId).populate('posts');
 }
-export function create(user) {
-    return User.create(user);
+export async function create(user) {
+    return await User.create(user);
 }
-export function deleteUser(UserId) {
-    return User.findByIdAndRemove(UserId);
+export async function deleteUser(UserId) {
+    return await User.findByIdAndRemove(UserId);
 }

@@ -1,30 +1,35 @@
+import errorMessages from '../../config/error.messages';
 
 const Post  = require('../models/post');
 const User  = require('../models/user');
 
-export function list({ limit=50,offset=0, ...args} = {}) {
-    return Post.find({})
+export async function list({ limit=50,offset=0, ...args} = {}) {
+    return await Post.find({})
 }
-export function findPostsByUser(userId, { limit=50,offset=0, ...args} = {}) {
-    return Post.find({});
+export async function getPostByUser(userId, { limit=50,offset=0, ...args} = {}) {
+    return await Post.find({user : userId}).populate('user')
 }
-export function findById(UserId) {
-    return Post.findById(UserId).populate('user')
+export async function findById(id) {
+    console.log(id);
+    return await Post.findById(id).populate('user');
 }
-export function create(post, userId) {
-     Post.create(post).then(postData => {
-        const id = postData._id;
-        User.findById(userId).then(data => {
-            let posts = user.post;
-            posts.push(id);
-            data.post = posts;
-            return data.save();
-        })
-     })
+export async function create(post, userId) {
+     const newPost = await Post.create(post);
+     const id = post._id;
+     const user = await User.findById(userId);
+     if(! user){
+         throw new Error(errorMessages.USER_NOT_FOUND);
+     }
+     let posts = user.posts || [];
+     posts.push(id);
+     user.posts = posts;
+     await user.save();
+     newPost.user = userId;
+     return await newPost.save();
 }
-export function update(UserId) {
-    return Post.findById(UserId).populate('user')
+export async function update(UserId) {
+    return await Post.findById(UserId).populate('user')
 }
-export function deletePost(postId) {
-    return Post.findByIdAndRemove(postId);
+export async function deletePost(postId) {
+    return await Post.findByIdAndRemove(postId);
 }

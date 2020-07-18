@@ -24,18 +24,13 @@ const validators = {
 		}
 		resp.status(400).json({message});
 	},
-	uniqueValidator: (req, resp, next)=>{
-		findByUserName(req.body.userName)
-			.then((data)=>{
-				if (data) {
-					resp.status(422).json({message: errorMessages.USER_USERNAME_TAKEN});
-				} else {
-					next();
-				}
-			}).catch(err => {
-				console.log(err);
-				next(err);
-			})
+	uniqueValidator: async (req, resp, next)=>{
+		const data = await findByUserName(req.body.userName);
+		if(data) {
+			resp.status(400).send(errorMessages.USER_USERNAME_TAKEN);
+		} else {
+			next();
+		}
 	}
 }
 export default validators;
