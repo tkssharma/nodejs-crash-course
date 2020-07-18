@@ -1,14 +1,15 @@
-# blog-restful
+# nodejs-rest-apis
+
 This is a proposal / example for creating restful APIs with node, express, sequelize and mysql.
+
 ## frameworks
+
 * ES6 through babel
 * node 
 * express
-* sequelize
-* mysql
+* mongodb
 
 ## folder structure
-
 		blog-restful/
 		+-- .gitignore
 		+-- .babelrc
@@ -52,7 +53,7 @@ This is a proposal / example for creating restful APIs with node, express, seque
 
 | #     | api         | description |
 |------ | ----------- | ----------- |
-| 1 | get **/api/users?limit=<#>&offset=<#>&status=active,inactive** | Get all users based on input criteria such as status, limit.. |
+| 1 | get **/api/users** | Get all users based on input criteria such as status, limit.. |
 | 2 | get **/api/users/:userId** | Get a user by userid |
 | 3 | post **/api/users/** | Create a new user |
 | 4 | delete **/api/users/:userId** | Delete a user by userid |
@@ -60,11 +61,11 @@ This is a proposal / example for creating restful APIs with node, express, seque
 ### post
 | #     | api         | description |
 |------ | ----------- | ----------- |
-| 1 | get **/api/users/:userName/posts?limit=<#>&offset=<#>&status=active,inactive**  | Get all posts of a user based on input criteria such as status, limit.. |
 | 2 | get **/api/posts/:postId** | Get a post by id |
-| 3 | post **/api/users/:userId/posts** | Create a new post |
-| 4 | delete **/api/posts/:postId** | Delete a post by post id |
-| 5 | put **/api/posts/:postId** | Update a post by post id |
+| 3 | post **/api/users/:userId/posts** | Create a new post by user |
+| 4 | get **/api/users/:userId/posts** | get a post by user |
+| 5 | delete **/api/posts/:postId** | Delete a post by post id |
+| 6 | put **/api/posts/:postId** | Update a post by post id |
 
 ## commands
 * start in development mode: **npm run start:dev**
