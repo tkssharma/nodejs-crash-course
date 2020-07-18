@@ -1,25 +1,23 @@
 
-
-/**
- * Module dependencies.
- */
-import express from 'express';
 import postCtrl from '../controllers/post.ctrl';
 import postValidator from '../validators/post.validator';
+import * as express from 'express';
+const router = express.Router()
 
-export default function(app) {
+// ALL POSTS FOR USERID
+router.route('/user/:userId')
+	.get([postCtrl.getPostsByUser])
 
-	let router = express.Router();
-	router.route('/:userId/posts')
-		.get(postCtrl.list)
-    .post([postValidator.reqValidator, postCtrl.create]);
+// ALL POSTS
+router.route('/')
+	.get([postCtrl.list])
 
-	app.use('/api/users', router);
+// GET POST BY ID 	
+router.route('/:postId')
+    .get([postValidator.uuidValidator, postCtrl.list])
+	.get([postValidator.uuidValidator, postCtrl.get])
+	.put([postValidator.uuidValidator, postCtrl.update])
+	.delete([postValidator.uuidValidator, postCtrl.delete]);
 
-	router.route('/:postId')
-		.get([postValidator.uuidValidator, postCtrl.get])
-		.put([postValidator.uuidValidator, postCtrl.update])
-    .delete([postValidator.uuidValidator, postCtrl.delete]);
+export default router
 
-	app.use('/api/posts', router);
-}

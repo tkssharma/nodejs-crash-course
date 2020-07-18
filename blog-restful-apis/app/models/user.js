@@ -1,9 +1,8 @@
 var mongoose = require('mongoose');
-mongoose.connect('localhost:27017/test');
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
-	username: { type: String, required: true },
+	userName: { type: String, required: true },
 	firstName: {
 		type: String
 	},

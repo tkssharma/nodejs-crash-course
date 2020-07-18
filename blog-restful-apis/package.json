@@ -15,7 +15,7 @@
     "method-override": "^2.3.5",
     "mongoose": "^5.9.24",
     "morgan": "^1.10.0",
-    "winston": "^2.2.0"
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "babel-cli": "^6.4.5",

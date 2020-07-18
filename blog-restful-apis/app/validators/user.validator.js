@@ -2,7 +2,7 @@
 import commonUtil from '../util/common.util';
 import errorMessages from '../../config/error.messages';
 import logger from '../util/logger';
-import {findByUserName} from '../services/user.service';
+import {findByUserName} from '../service/user.service';
 
 const validators = {
 	reqValidator: (req, resp, next)=>{
@@ -22,17 +22,20 @@ const validators = {
 		} else {
 			message = errorMessages.USER_DATA_INVALID;
 		}
-		resp.status(400).end(message);
+		resp.status(400).json({message});
 	},
 	uniqueValidator: (req, resp, next)=>{
 		findByUserName(req.body.userName)
 			.then((data)=>{
 				if (data) {
-					resp.status(422).end(errorMessages.USER_USERNAME_TAKEN);
+					resp.status(422).json({message: errorMessages.USER_USERNAME_TAKEN});
 				} else {
 					next();
 				}
-			});
+			}).catch(err => {
+				console.log(err);
+				next(err);
+			})
 	}
 }
 export default validators;

@@ -53,9 +53,9 @@ This is a proposal / example for creating restful APIs with node, express, seque
 | #     | api         | description |
 |------ | ----------- | ----------- |
 | 1 | get **/api/users?limit=<#>&offset=<#>&status=active,inactive** | Get all users based on input criteria such as status, limit.. |
-| 2 | get **/api/users/:userName** | Get a user by userName |
+| 2 | get **/api/users/:userId** | Get a user by userid |
 | 3 | post **/api/users/** | Create a new user |
-| 4 | delete **/api/users/:userName** | Delete a user by userName |
+| 4 | delete **/api/users/:userId** | Delete a user by userid |
 
 ### post
 | #     | api         | description |
