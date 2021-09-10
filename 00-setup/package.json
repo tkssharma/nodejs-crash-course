@@ -1,0 +1,24 @@
+{
+  "name": "00-setup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "lint": "node index.js",
+    "db:migrate": "node index.js",
+    "test": "jest index.js",
+    "start:dev": "echo 'hello'",
+    "start:prod": "echo 'hello prod'"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "express": "^4.17.1",
+    "node-fetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "jest": "^27.1.1"
+  }
+}
