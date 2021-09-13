@@ -48,6 +48,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/cat', cat);
 // users --> users  route handler
 //  / index route handler 
 // catch 404 and forward to error handler

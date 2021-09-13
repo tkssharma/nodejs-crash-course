@@ -1,0 +1,6 @@
+// write http express app which will call weather apis 
+
+/weather/:cityName 
+- call weather api and pass city name and get data and send data to client 
+
+- JSON response 

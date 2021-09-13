@@ -1,0 +1,18 @@
+// write http express app which will call weather apis 
+
+// write express app using express generator 
+// extend this app and add cat apis 
+
+// CRUD
+
+CREATE 
+INSERT
+UPDATE 
+DELETE
+
+const catArray = [{
+  name: '',
+  breed: '',
+  age: '',
+  ownerName: ''
+}]
