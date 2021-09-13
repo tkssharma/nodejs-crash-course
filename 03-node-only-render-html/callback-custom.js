@@ -1,34 +1,33 @@
 var http = require('http');
 var fs = require('fs');
-
-
-// fs.readFile
-// V8 RUNTIME ENGINE [CHROME]
-// LIBUV LIBRARY [EVENT LOOP, EVENT QUEUE, CALLBACKS ]
-// 1000 REQUEST 
+const axios = require('axios');
+const url = `https://jsonplaceholder.typicode.com/posts`;
+const Hello = function (str, cb) {
+  // async operation 
+  // making http call like axios or fetch here 
+  // async call 
+  axios.get(str)
+    .then(data => {
+      cb(null, data.data);
+    })
+    .catch(err => {
+      cb(err, null)
+    })
+}
 function onRequest(request, response) {
-
-  response.writeHead(200, { 'Content-Type': 'text/html' });
-
-  fs.readFile("hello.txt", 'utf-8', (error, data) => {
-    if (error) {
+  //response.writeHead(200, { 'Content-Type': 'text/html' });
+  Hello(url, function (err, data) {
+    if (err) {
+      console.log(err);
       response.writeHead(404);
       response.write('File not found!');
     } else {
-      response.write(data);
+      response.writeHead(200);
+      console.log(data);
+      response.write(JSON.stringify(data));
     }
-    response.end();
-  });
-}
-
-function onRequest(request, response) {
-
-  response.writeHead(200, { 'Content-Type': 'text/html' });
-
-  setTimeout(() => {
-    response.writeHead(200);
-    response.write('File not found!');
-  }, 3000)
+    response.end()
+  })
 }
 
 http.createServer(onRequest).listen(8000);
@@ -45,3 +44,11 @@ http.createServer(onRequest).listen(8000);
 // REQUEST 1 ==> CALLBACK PROCESSED --> SEND REPLY BACK 
 // REQUEST 1 ==> CALLBACK PROCESSED --> SEND REPLY BACK 
 
+
+
+
+// FE  =========> HTTP GET -----> 
+// callback
+/// timer events 
+// promises
+// async await 

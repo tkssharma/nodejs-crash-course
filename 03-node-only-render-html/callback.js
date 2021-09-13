@@ -6,28 +6,13 @@ var fs = require('fs');
 // V8 RUNTIME ENGINE [CHROME]
 // LIBUV LIBRARY [EVENT LOOP, EVENT QUEUE, CALLBACKS ]
 // 1000 REQUEST 
-function onRequest(request, response) {
-
-  response.writeHead(200, { 'Content-Type': 'text/html' });
-
-  fs.readFile("hello.txt", 'utf-8', (error, data) => {
-    if (error) {
-      response.writeHead(404);
-      response.write('File not found!');
-    } else {
-      response.write(data);
-    }
-    response.end();
-  });
-}
 
 function onRequest(request, response) {
-
-  response.writeHead(200, { 'Content-Type': 'text/html' });
 
   setTimeout(() => {
-    response.writeHead(200);
-    response.write('File not found!');
+    console.log('logging...');
+    response.writeHead(200, { 'Content-Type': 'text/html' });
+    response.write('success');
   }, 3000)
 }
 
@@ -45,3 +30,11 @@ http.createServer(onRequest).listen(8000);
 // REQUEST 1 ==> CALLBACK PROCESSED --> SEND REPLY BACK 
 // REQUEST 1 ==> CALLBACK PROCESSED --> SEND REPLY BACK 
 
+
+
+
+// FE  =========> HTTP GET -----> 
+// callback
+/// timer events 
+// promises
+// async await 

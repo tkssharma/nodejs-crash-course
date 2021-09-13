@@ -2,33 +2,17 @@ var http = require('http');
 var fs = require('fs');
 
 
-// fs.readFile
-// V8 RUNTIME ENGINE [CHROME]
-// LIBUV LIBRARY [EVENT LOOP, EVENT QUEUE, CALLBACKS ]
-// 1000 REQUEST 
-function onRequest(request, response) {
-
-  response.writeHead(200, { 'Content-Type': 'text/html' });
-
-  fs.readFile("hello.txt", 'utf-8', (error, data) => {
-    if (error) {
-      response.writeHead(404);
-      response.write('File not found!');
-    } else {
-      response.write(data);
-    }
-    response.end();
-  });
+const Promise = function () {
+  // async operation 
+  return Promise.resolve('Hello i am running promises');
 }
 
 function onRequest(request, response) {
-
-  response.writeHead(200, { 'Content-Type': 'text/html' });
-
-  setTimeout(() => {
-    response.writeHead(200);
-    response.write('File not found!');
-  }, 3000)
+  Promise.then(data => {
+    console.log('logging...');
+    response.writeHead(200, { 'Content-Type': 'text/html' });
+    response.write(data);
+  })
 }
 
 http.createServer(onRequest).listen(8000);
