@@ -24,30 +24,6 @@ http.createServer(onRequest).listen(8000);
 3. Graphql APIs
 4. Server side rendering (ejs/ pug)
 */
-<<<<<<< HEAD
-
-const express = require('express')
-const app = express()
-const port = 3000
-
-app.get('/', (req, res) => res.send('Hello World!')) // HTTP GET /
-app.get('/sayhello', (req, res) => res.status(200).json({ message: 'Hello World!' })) // HTTP GET /sayhello
-
-
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
-=======
-var bodyParser = require('body-parser')
-
-const users = [
-  {
-    userId: 1,
-    email: 'test@gmail.com'
-  },
-  {
-    userId: 2,
-    email: 'test-2@gmail.com'
-  }
-]
 const express = require('express')
 const app = express()
 const port = 3000
@@ -121,4 +97,3 @@ app.delete('/users/:userId', (request, response) => {
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
 
->>>>>>> updates

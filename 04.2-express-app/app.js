@@ -14,32 +14,12 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-
+var cat = require('./routes/cat');
+const courses = require('./routes/courses');
 var app = express();
-// 2 create express instances
 
-// view engine setup
-
-// templating engine configuration 
-// views dir for files 
-// we are setting templating engine name 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-/*
-app express instance 
-app.use()
-MIDDLEWARE 
-
-
-REQUEST IS COMING FROM CLIENT ----------{{{{{are you logged in }}}}}-----------API ACCOUNT CREATION 
-REQUEST --->>> MIDDLEWARE >>----> ACTUAL HANDLER 
-
-app.use()
-
-*/
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -49,17 +29,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/cat', cat);
+app.use('/courses', courses);
 // users --> users  route handler
 //  / index route handler 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
