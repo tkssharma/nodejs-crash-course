@@ -1,4 +1,15 @@
 const { MongoClient } = require("mongodb");
+// vanilla library 
+// CRUD 
+// 1. phase 1 get connection url  mongodb://localhost:27017/test_db
+// 2. how to connect 
+// 3. const client = new MongoClient(uri); 
+// 4. client.connect()
+// 5.  const database = client.db('test_db');
+// 6. const movies = database.collection('test_movies');
+
+
+
 // Replace the uri string with your MongoDB deployment's connection string.
 const uri =
   "mongodb://localhost:27017/anyDatabase"
@@ -9,6 +20,7 @@ async function run() {
     await client.connect();
     const database = client.db('test_db');
     const movies = database.collection('test_movies');
+    // database.collection('test_movies')
     database.collection('test_movies').insertOne({ title: 'Back to the Future' })
     // Query for a movie that has the title 'Back to the Future'
     const query = { title: 'Back to the Future' };

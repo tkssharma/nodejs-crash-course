@@ -1,79 +1,115 @@
-var express = require('express');
-var router = express.Router();
-var mongo = require('mongodb').MongoClient;
-var objectId = require('mongodb').ObjectID;
-var assert = require('assert');
+const express = require('express');
+const router = express.Router();
 
-var url = 'mongodb://localhost:27017/test';
+const mongoClient = require('mongodb').MongoClient;
+const url = 'mongodb://localhost:27017/test';
+const objectId = require('mongodb').ObjectID;
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index');
-});
+router.get('/users', function (req, res, next) {
 
-router.get('/get-data', function(req, res, next) {
-  var resultArray = [];
-  mongo.connect(url, function(err, db) {
-    assert.equal(null, err);
-    var cursor = db.collection('user-data').find();
-    cursor.forEach(function(doc, err) {
-      assert.equal(null, err);
-      resultArray.push(doc);
-    }, function() {
+  // connect to mongo db 
+  // query the collection 
+  //  play with the data 
+  const array = [];
+  mongoClient.connect(url, function (err, db) {
+    if (err) {
+      res.status(500).send(err);
+      return;
+    }
+    const cursor = db.collection("users").find();
+    cursor.forEach(function (doc) {
+      array.push(doc);
+    }, function () {
       db.close();
-      res.render('index', {items: resultArray});
-    });
-  });
-});
+      res.status(201).json({ result: array });
+    })
+  })
+})
 
-router.post('/insert', function(req, res, next) {
-  var item = {
-    title: req.body.title,
-    content: req.body.content,
-    author: req.body.author
-  };
-
-  mongo.connect(url, function(err, db) {
-    assert.equal(null, err);
-    db.collection('user-data').insertOne(item, function(err, result) {
-      assert.equal(null, err);
-      console.log('Item inserted');
+router.get('/users/:id', (req, res) => {
+  const id = req.params.id;
+  mongoClient.connect(url, function (err, db) {
+    if (err) {
+      res.status(500).send(err);
+      return;
+    }
+    db.collection("users").findOne({ "_id": objectId(id) }, function (err, result) {
+      console.log('data fetched...');
       db.close();
-    });
+      res.status(200).json(result);
+    })
   });
-
-  res.redirect('/');
-});
-
-router.post('/update', function(req, res, next) {
-  var item = {
-    title: req.body.title,
-    content: req.body.content,
-    author: req.body.author
-  };
-  var id = req.body.id;
-
-  mongo.connect(url, function(err, db) {
-    assert.equal(null, err);
-    db.collection('user-data').updateOne({"_id": objectId(id)}, {$set: item}, function(err, result) {
-      assert.equal(null, err);
-      console.log('Item updated');
+})
+router.post('/users', (req, res) => {
+  const user = {
+    name: req.body.name,
+    email: req.body.email,
+    website: req.body.website
+  }
+  mongoClient.connect(url, function (err, db) {
+    if (err) {
+      res.status(500).send(err);
+      return;
+    }
+    db.collection("users").insertOne(user, function (err, result) {
+      console.log('data inserted');
       db.close();
-    });
+    })
+    res.json({ message: 'data inserted successfully' });
   });
-});
-
-router.post('/delete', function(req, res, next) {
-  var id = req.body.id;
-
-  mongo.connect(url, function(err, db) {
-    assert.equal(null, err);
-    db.collection('user-data').deleteOne({"_id": objectId(id)}, function(err, result) {
-      assert.equal(null, err);
-      console.log('Item deleted');
+})
+router.delete('/users/:id', (req, res) => {
+  const id = req.params.id;
+  mongoClient.connect(url, function (err, db) {
+    if (err) {
+      res.status(500).send(err);
+      return;
+    }
+    db.collection("users").deleteOne({ "_id": objectId(id) }, function (err, result) {
+      console.log('data deleted...');
+      if (err) {
+        res.status(500).send(err);
+        return;
+      }
       db.close();
-    });
+      res.status(204).send();
+    })
   });
-});
+})
+router.put('/users/:id', (req, res) => {
+  const id = req.params.id;
+  const data = {
+    name: req.body.name,
+    email: req.body.email,
+    website: req.body.website
+  }
+  mongoClient.connect(url, function (err, db) {
+    if (err) {
+      res.status(500).send(err);
+      return;
+    }
+    db.collection("users").updateOne({ "_id": objectId(id) }, { $set: data }, function (err, result) {
+      console.log('data UPDATED...');
+      if (err) {
+        res.status(500).send(err);
+        return;
+      }
+      db.close();
+      res.status(200).json(result);
+    })
+  });
+})
 
 module.exports = router;
+
+
+
+/***
+ * 
+ *  COURSES 
+ * /courses post
+ *   /courses list
+ *  /courses/:id get
+ * /courses/:id update
+ * /courses/:id delete
+ * ****/
