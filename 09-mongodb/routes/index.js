@@ -1,6 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
+// 3- APIs posts , user, blogs
+// 4- login and register 
+// 5 - mongo db 
+// 6 - courses apis with mongo db and node js 
+// 7 
+
 const mongoClient = require('mongodb').MongoClient;
 const url = 'mongodb://localhost:27017/test';
 const objectId = require('mongodb').ObjectID;
@@ -88,6 +94,8 @@ router.put('/users/:id', (req, res) => {
       res.status(500).send(err);
       return;
     }
+    //
+    // db.collection("users").updateOne({ "name": req.query.name }, { $set: data }, function (err, result) { 
     db.collection("users").updateOne({ "_id": objectId(id) }, { $set: data }, function (err, result) {
       console.log('data UPDATED...');
       if (err) {
@@ -105,11 +113,12 @@ module.exports = router;
 
 
 /***
- * 
- *  COURSES 
+ *
+ *  COURSES
  * /courses post
  *   /courses list
  *  /courses/:id get
+ *  *  /courses?name=something get
  * /courses/:id update
  * /courses/:id delete
  * ****/
